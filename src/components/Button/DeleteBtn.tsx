@@ -17,10 +17,10 @@ const Button = styled.button`
     font-weight: bold;
 `;
 
-const TranslateBtn: React.FC = () => (
+const DeleteBtn: React.FC = () => (
     <Container>
         <Button>삭제하기</Button>
     </Container>
 );
 
-export default TranslateBtn;
+export default DeleteBtn;
