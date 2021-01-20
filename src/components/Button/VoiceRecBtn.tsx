@@ -54,7 +54,7 @@ const Span = styled.span`
     align-items: center;
 `;
 
-const VoiceRec: React.FC = () => {
+const VoiceRecBtn: React.FC = () => {
     const [isClicked, setIsClicked] = useState<boolean>(false);
 
     const handleClick = () => setIsClicked(true);
@@ -78,4 +78,4 @@ const VoiceRec: React.FC = () => {
     );
 };
 
-export default VoiceRec;
+export default VoiceRecBtn;
