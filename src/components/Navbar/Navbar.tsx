@@ -28,12 +28,13 @@ const Container = styled.div`
     }
 `;
 
-const Logo = styled.div`
+const Logo = styled.a`
     position: relative;
     left: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     @media screen and (max-width: 768px) {
         width: 100%;
         height: 64px;
@@ -75,7 +76,7 @@ const Content = styled.div`
     text-align: center;
 `
 
-const Item = styled.span<StyleProps>`
+const Item = styled.a<StyleProps>`
     margin-left: 16px;
     cursor: pointer;
     font-weight:${(props) => (props.active ? 'normal' : 'bold')};
@@ -97,7 +98,7 @@ const Navbar: React.FC = () => {
     const router = useRouter()
     return (
         <Container>
-            <Logo>
+            <Logo onClick={() => router.push('/')}>
                 {isMobile ? (
                     <>
                         <MenuWrapper onClick={handleClick}>
