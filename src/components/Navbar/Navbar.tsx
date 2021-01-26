@@ -93,7 +93,6 @@ const Navbar: React.FC = () => {
     const handleClick = () => setIsClicked(!isClicked);
 
     const [isActive, setIsActive] = useState<boolean>(false);
-    const handleActive = () => setIsActive(!isActive);
 
     const router = useRouter()
     return (
@@ -129,8 +128,8 @@ const Navbar: React.FC = () => {
                     </>
                 ) : (
                     <>
-                        <Item onClick={handleActive} active={isActive}>홈</Item>
-                        <Item onClick={handleActive} active={!isActive}>번역기록</Item>
+                        <Item onClick={()=>setIsActive(false)} active={isActive}>홈</Item>
+                        <Item onClick={()=>setIsActive(true)} active={!isActive}>번역기록</Item>
                     </>
                 )}
             </List>
