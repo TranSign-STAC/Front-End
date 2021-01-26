@@ -2,7 +2,6 @@ import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
-import Translation from '../../../public/images/outline/translation.svg';
 import BackArrow from '../../../public/images/outline/backArrow.svg';
 import Menu from '../../../public/images/outline/menu.svg';
 import LogoRegular from '../../../public/images/logo/Logo_small.svg';
@@ -22,11 +21,10 @@ const Container = styled.div`
     justify-content: space-between;
     @media screen and (max-width: 768px) {
         width: 100%;
-        height: 128px;
         padding: 0;
         flex-direction: column;
     }
-`;
+`
 
 const Logo = styled.a`
     position: relative;
@@ -60,20 +58,6 @@ const List = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    @media screen and (max-width: 768px) {
-        width: 100%;
-        height: 64px;
-        left: 0;
-        justify-content: center;
-        align-items: center;
-    }
-`
-
-const Content = styled.div`
-    flex: 1;
-    height: 28px;
-    font-weight: bold;
-    text-align: center;
 `
 
 const Item = styled.a<StyleProps>`
@@ -121,11 +105,7 @@ const Navbar: React.FC = () => {
             </Logo>
             <List>
                 {isMobile ? (
-                    <>
-                        <Content>한국어</Content>
-                        <Translation />
-                        <Content>수어</Content>
-                    </>
+                        null
                 ) : (
                     <>
                         <Item onClick={()=>setIsActive(false)} active={isActive}>홈</Item>
