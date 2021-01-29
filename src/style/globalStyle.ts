@@ -32,7 +32,9 @@ export const GlobalStyle = createGlobalStyle`
         url('/fonts/NotoSansKR-Bold.woff') format('woff'),
         url('/fonts/NotoSansKR-Bold.otf') format('embedded-opentype');
     }
-
+    body, html {
+        background: #fbfbff;
+    }
     body, textarea, button {
         font-family: 'Noto Sans CJK KR', sans-serif;
     }
