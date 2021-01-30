@@ -1,5 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+import * as color from '../../style/variables';
+
+type styleProps = {
+    status: String;
+};
 
 const Container = styled.div`
     width: 448px;
@@ -7,19 +13,39 @@ const Container = styled.div`
     border: none;
 `;
 
-const Button = styled.button`
+const Button = styled.button<styleProps>`
     border-radius: 4px;
     border: none;
     width: 100%;
     height: 100%;
-    color: #fff;
-    background: #f16565;
-    font-weight: bold;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    ${(props) =>
+        props.status === 'enable'
+            ? css`
+                  background: ${color.RED};
+                  color: ${color.WHITE};
+              `
+            : css`
+                  background-color: rgba(0, 0, 0, 0.2);
+                  color: rgba(0, 0, 0, 0.4);
+              `};
 `;
 
-const DeleteBtn: React.FC = () => (
+type Props = {
+    status: String;
+};
+
+const DeleteBtn = ({ status }: Props) => (
     <Container>
-        <Button>삭제하기</Button>
+        {status === 'enable' ? (
+            <Button status={status}>삭제하기</Button>
+        ) : (
+            <Button status={status} disabled>
+                {status === 'disable' ? '삭제하기' : '...'}
+            </Button>
+        )}
     </Container>
 );
 
