@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import * as color from '../../style/variables';
+import * as theme from '../../style/theme';
 
 type styleProps = {
     status: String;
@@ -24,8 +24,8 @@ const Button = styled.button<styleProps>`
     ${(props) =>
         props.status === 'enable'
             ? css`
-                  background: ${color.RED};
-                  color: ${color.WHITE};
+                  background: ${theme.RED};
+                  color: ${theme.WHITE};
               `
             : css`
                   background-color: rgba(0, 0, 0, 0.2);

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import Mic from '../../assets/fill/mic.svg';
-import MicWhite from '../../assets/white/mic.svg';
+import Mic from '../../../public/images/fill/mic.svg';
+import MicWhite from '../../../public/images/white/mic.svg';
 
-import * as color from '../../style/variables';
+import * as theme from '../../style/theme';
 
 type StyleProps = {
     active: boolean;
@@ -20,11 +20,11 @@ const Container = styled.div<StyleProps>`
     ${(props) =>
         props.active
             ? css`
-                  background: ${color.PURPLE};
+                  background: ${theme.PURPLE};
                   box-shadow: 0px 0px 10px rgba(84, 70, 246, 0.5);
               `
             : css`
-                  background: ${color.WHITE};
+                  background: ${theme.WHITE};
                   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
               `};
 `;
@@ -36,7 +36,7 @@ const Button = styled.button<StyleProps>`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${(props) => (props.active ? color.WHITE : color.PURPLE)};
+    color: ${(props) => (props.active ? theme.WHITE : theme.PURPLE)};
     font-style: normal;
     font-weight: bold;
     font-size: 16px;

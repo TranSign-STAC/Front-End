@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 import DeleteBtn from '../Button/DeleteBtn';
 
-import Close from '../../assets/outline/close.svg';
-import Trash from '../../assets/white/trash.svg';
+import Close from '../../../public/images/outline/close.svg';
+import Trash from '../../../public/images/white/trash.svg';
 
-import * as color from '../../style/variables';
+import * as theme from '../../style/theme';
 
 const Container = styled.div`
     position: relative;
@@ -17,7 +17,6 @@ const Container = styled.div`
     align-items: center;
     justify-items: center;
     border-radius: 4px;
-    border: 1px solid black;
 `;
 
 const CloseWrapper = styled.div`
@@ -33,12 +32,12 @@ const TrashWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: ${color.RED};
+    background: ${theme.RED};
     border-radius: 100%;
 `;
 
 const Title = styled.h2`
-    color: ${color.RED};
+    color: ${theme.RED};
     font-size: 24px;
     font-weight: 700;
     line-height: 24px;
@@ -67,7 +66,7 @@ const DeleteModal: React.FC = () => {
                 삭제한 번역 기록은 복구할 수 없습니다. <br />
                 번역 기록을 삭제하시겠습니까?
             </Describe>
-            <DeleteBtn />
+            <DeleteBtn status="enable" />
         </Container>
     );
 };

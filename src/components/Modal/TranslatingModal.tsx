@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Close from '../../assets/outline/close.svg';
-import Translation from '../../assets/white/translation.svg';
+import Close from '../../../public/images/outline/close.svg';
+import Translation from '../../../public/images/white/translation.svg';
 
-import * as color from '../../style/variables';
+import * as theme from '../../style/theme';
 
 const Container = styled.div`
     position: relative;
@@ -15,7 +15,6 @@ const Container = styled.div`
     align-items: center;
     justify-items: center;
     border-radius: 4px;
-    border: 1px solid black;
 `;
 
 const CloseWrapper = styled.div`
@@ -31,7 +30,7 @@ const TranslationWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: ${color.PURPLE};
+    background: ${theme.PURPLE};
     border-radius: 100%;
 `;
 
