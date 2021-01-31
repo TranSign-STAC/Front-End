@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import VoiceRecBtn from '../Button/VoiceRecBtn';
-import * as font from '../../style/variables';
+import * as theme from '../../style/variables';
 
 import Translation from '../../../public/images/outline/translation.svg';
 import Close from '../../../public/images/outline/close.svg';
@@ -36,14 +36,14 @@ const Content = styled.div`
     justify-content: center;
     & > button {
         border: none;
-        background: ${font.WHITE};
+        background: ${theme.WHITE};
         cursor: pointer;
         font-weight: bold;
     }
     & > button > span {
         display: flex;
         align-items: center;
-        font-size: ${font.paragraph}px;
+        font-size: ${theme.paragraph}px;
     }
 `
 
@@ -88,7 +88,7 @@ const CircleBtn = styled.button`
     height: 128px;
     border: none;
     border-radius: 50%;
-    background: ${font.WHITE};
+    background: ${theme.WHITE};
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
 `
@@ -102,7 +102,7 @@ const Dropdown =styled.div`
     position: absolute;
     width: 96px;
     height: 72px;
-    background: ${font.WHITE};
+    background: ${theme.WHITE};
     border-radius: 4px;
     display: flex;
     flex-direction:column;
@@ -113,11 +113,11 @@ const Dropdown =styled.div`
 const Item = styled.button<StyleProps>`
     flex: 1;
     font-weight: bold;
-    font-size: ${font.paragraph}px;
+    font-size: ${theme.paragraph}px;
     border-radius: 0;
     border: none;
-    background: ${font.WHITE};
-    color:${(props) => (props.active ? font.BLACK : font.PURPLE )};
+    background: ${theme.WHITE};
+    color:${(props) => (props.active ? theme.BLACK : theme.PURPLE )};
     cursor: pointer;
     &:hover {
         background:rgba(84, 70, 246, 0.1);
@@ -125,7 +125,7 @@ const Item = styled.button<StyleProps>`
 `
 
 const TranslationArea: React.FC = () => {
-    const [isChange, setIsChange] = useState<boolean>(false);
+    const [isChange, setIsChange] = useState('');
     const [isDropdown, setIsDropdown] = useState<boolean>(false);
     const handleDropdown = () => setIsDropdown(!isDropdown);
     const [isInputValue, setIsInputValue] = useState('');
@@ -147,8 +147,8 @@ const TranslationArea: React.FC = () => {
                     </Content>
                     {isDropdown ? (
                                 <Dropdown>
-                                    <Item onClick={()=>{setIsChange(false);setIsDropdown(false);}} active={isChange}>한국어</Item>
-                                    <Item onClick={()=>{setIsChange(true);setIsDropdown(false);}} active={!isChange}>수어</Item>
+                                    <Item onClick={()=>{setIsChange('kor');setIsDropdown(false);}} active={isChange}>한국어</Item>
+                                    <Item onClick={()=>{setIsChange('sign');setIsDropdown(false);}} active={!isChange}>수어</Item>
                                 </Dropdown>
                             ):(
                                 null
@@ -157,7 +157,7 @@ const TranslationArea: React.FC = () => {
                     <Translation />
                 <Content>
                     <button onClick={handleDropdown}>
-                        {isChange ? (
+                        {isChange === 'kor' ? (
                                 <span>한국어 <DownArrow/></span>
                             ):(
                                 <span>수어 <DownArrow/></span>
