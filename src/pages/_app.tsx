@@ -1,17 +1,16 @@
-import App, { Container } from 'next/app';
-import React from 'react';
+import withReduxSaga from 'next-redux-saga';
+
 import { GlobalStyle } from '../style/globalStyle';
 
-class ReactApp extends App<any> {
-    public render() {
-        const { Component, pageProps } = this.props;
-        return (
-            <Container>
-                <GlobalStyle />
-                <Component {...pageProps} />
-            </Container>
-        );
-    }
-}
+import wrapper from '../store/configureStore';
 
-export default ReactApp;
+const TranSign = ({ Component, pageProps }: any) => {
+    return (
+        <>
+            <GlobalStyle />
+            <Component {...pageProps} />
+        </>
+    );
+};
+
+export default wrapper.withRedux(withReduxSaga(TranSign));
