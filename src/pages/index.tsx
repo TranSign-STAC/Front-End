@@ -1,9 +1,5 @@
-import { GlobalStyle } from '../style/globalStyle';
+import Layout from '../components/Layout/Layout';
 
-const IndexPage = () => (
-    <div>
-        <GlobalStyle />
-    </div>
-);
+const IndexPage = () => <Layout>랜딩페이지</Layout>;
 
 export default IndexPage;
