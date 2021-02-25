@@ -30,6 +30,6 @@ export const desktopM = (content: string) =>
     }`;
 
 export const desktopL = (content: string) =>
-    `@media only screen and (min-width:${theme.breakpointDesktopM + 1}px) {
+    `@media only screen and (min-width:${theme.breakpointDesktopM}px) {
         ${content}
     }`;
