@@ -1,37 +1,52 @@
 {
-  "name": "transign",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "type-check": "tsc"
-  },
-  "dependencies": {
-    "babel-plugin-styled-components": "^1.12.0",
-    "next": "latest",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "styled-components": "^5.2.1"
-  },
-  "devDependencies": {
-    "@svgr/webpack": "^5.5.0",
-    "@types/node": "^12.12.21",
-    "@types/react": "^16.9.16",
-    "@types/react-dom": "^16.9.4",
-    "@types/styled-components": "^5.1.7",
-    "@typescript-eslint/eslint-plugin": "^4.14.0",
-    "@typescript-eslint/parser": "^4.14.0",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-import-resolver-typescript": "^2.3.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4",
-    "file-loader": "^6.2.0",
-    "typescript": "4.0",
-    "url-loader": "^4.1.1"
-  },
-  "license": "MIT"
+    "name": "transign",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "next",
+        "build": "next build",
+        "start": "next start",
+        "type-check": "tsc"
+    },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "babel-plugin-styled-components": "^1.12.0",
+        "next": "latest",
+        "next-redux-saga": "^4.1.2",
+        "next-redux-wrapper": "^6.0.2",
+        "nookies": "^2.5.2",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
+        "react-redux": "^7.2.2",
+        "redux-logger": "^3.0.6",
+        "redux-saga": "^1.1.3",
+        "styled-components": "^5.2.1",
+        "typesafe-actions": "^5.1.0",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "@svgr/webpack": "^5.5.0",
+        "@types/next-redux-saga": "^3.0.2",
+        "@types/node": "^12.12.21",
+        "@types/react": "^16.9.16",
+        "@types/react-dom": "^16.9.4",
+        "@types/react-redux": "^7.1.16",
+        "@types/redux-logger": "^3.0.8",
+        "@types/redux-saga": "^0.10.5",
+        "@types/styled-components": "^5.1.7",
+        "@types/uuid": "^8.3.0",
+        "@typescript-eslint/eslint-plugin": "^4.14.0",
+        "@typescript-eslint/parser": "^4.14.0",
+        "eslint": "^7.2.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-import-resolver-typescript": "^2.3.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-react": "^7.21.5",
+        "eslint-plugin-react-hooks": "^4",
+        "file-loader": "^6.2.0",
+        "redux-devtools-extension": "^2.13.8",
+        "typescript": "4.0",
+        "url-loader": "^4.1.1"
+    },
+    "license": "MIT"
 }
