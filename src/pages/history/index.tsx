@@ -87,15 +87,17 @@ const HistoryPage = ({ histories, uuid }: Props) => {
     };
     useEffect(() => {
         if (!localStorage.getItem('uuid')) localStorage.setItem('uuid', uuidv4());
-        setIsMobile(/iPhone|iPod|Android/i.test(navigator.userAgent));
+        setIsMobile(screen.width <= 1024);
     }, []);
     return (
         <Layout>
             <Container>
                 <HistoryWrap>
-                    {histories.map((history: object, idx: number) => (
-                        <History translationText={history.text} handleClick={handleClick} key={idx} />
-                    ))}
+                    {histories.length < 1
+                        ? '번역 기록이 없습니다.'
+                        : histories.map((history: object, idx: number) => (
+                              <History translationText={history.text} handleClick={handleClick} key={idx} />
+                          ))}
                 </HistoryWrap>
                 {showDeleteModal && (
                     <DeleteModalWrap>
