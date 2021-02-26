@@ -12,10 +12,8 @@ export const TRANSLATE_ERROR = 'history/TRANSLATE_ERROR';
 
 function* translateTextToSignSaga(action: any) {
     try {
-        console.log(action);
         const result = yield call(translateApi.translateTextToSign, action.payload);
-        console.log(result);
-        yield put({ type: TRANSLATE_SUCCESS, payload: result });
+        yield put({ type: TRANSLATE_SUCCESS, payload: result.data });
     } catch (error) {
         yield put({ type: TRANSLATE_ERROR, payload: error });
     }
