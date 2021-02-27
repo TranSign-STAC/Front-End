@@ -2,25 +2,38 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import * as theme from '../../style/theme';
+import * as mixin from '../../style/mixin';
 
 type styleProps = {
     status: String;
 };
 
+type Props = {
+    status: String;
+};
+
 const Container = styled.div`
-    width: 448px;
-    height: 56px;
     border: none;
+    ${mixin.mobile(`
+        width: 311px;
+        height: 48px;
+    `)}
+    ${mixin.tablet(`
+        width: 448px;
+        height: 56px;
+        margin-bottom: 16px;
+    `)}
+    ${mixin.desktop(`
+        width: 448px;
+        height: 56px;
+        margin-bottom: 16px;
+    `)}
 `;
 
 const Button = styled.button<styleProps>`
-    border-radius: 4px;
     border: none;
     width: 100%;
     height: 100%;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
     ${(props) =>
         props.status === 'enable'
             ? css`
@@ -31,11 +44,21 @@ const Button = styled.button<styleProps>`
                   background-color: rgba(0, 0, 0, 0.2);
                   color: rgba(0, 0, 0, 0.4);
               `};
+    ${mixin.mobile(`
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    `)}
+    ${mixin.tablet(`
+        border-radius: 4px;
+        font-size: 16px;
+        line-height: 24px;
+    `)}
+    ${mixin.desktop(`
+        border-radius: 4px;
+        font-size: 16px;
+        line-height: 24px;
+    `)}
 `;
-
-type Props = {
-    status: String;
-};
 
 const DeleteBtn = ({ status }: Props) => (
     <Container>

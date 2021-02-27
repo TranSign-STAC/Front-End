@@ -1,40 +1,71 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Close from '../../assets/outline/close.svg';
+import Close from '../../../public/images/outline/close.svg';
+
+import * as theme from '../../style/theme';
+import * as mixin from '../../style/mixin';
 
 type Props = {
-    SourceLanguage: string;
-    TargetLanguage: string;
-    TranslationText: string;
+    translationText: string;
+    handleClick: Function;
 };
 
 const Container = styled.div`
+    height: 80px;
     position: relative;
-    width: 377px;
-    height: 128px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0 20px;
+    padding: 24px;
     border-radius: 4px;
-    border: 1px solid black;
-    &:hover {
-        & > div {
-            display: inline;
-        }
-    }
+    background: ${theme.WHITE};
+    ${mixin.mobile(
+        `
+            width: calc(100% - 48px);
+            margin-bottom: 16px;
+        `
+    )}
+    ${mixin.tablet(
+        `
+            width: 311px;
+        `
+    )}
+    ${mixin.desktop(
+        `
+            width: 368px;
+            &:hover {
+                & > div {
+                    display: inline;
+                }
+            }
+        `
+    )}
 `;
 
-const CloseWrapper = styled.div`
-    display: none;
+const CloseWrap = styled.div`
+    ${mixin.mobile(
+        `
+            display: inline;
+        `
+    )}
+    ${mixin.tablet(
+        `
+            display: inline;
+        `
+    )}
+    ${mixin.desktop(
+        `
+            display: none;
+        `
+    )}
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 28px;
+    right: 28px;
 `;
 
 const Title = styled.h2`
-    margin: 15px 0;
+    margin-bottom: 8px;
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
@@ -42,24 +73,21 @@ const Title = styled.h2`
 
 const TranslatedText = styled.p`
     width: 100%;
-    font-weight: 400;
+    font-weight: normal;
     font-size: 16px;
     line-height: 24px;
 `;
 
-const History: React.FC = () => {
+const History = ({ translationText, handleClick }: Props) => {
     return (
         <Container>
-            <CloseWrapper>
+            <CloseWrap onClick={handleClick}>
                 <Close />
-            </CloseWrapper>
+            </CloseWrap>
             <Title>한국어 → 수어</Title>
-            <TranslatedText>
-                TranSign이란, 한국 수어 번역 및 웹 페이지 수어 번역 솔루션입니다. TranSign이란, 한국 수어 번역
-                및 웹 페...
-            </TranslatedText>
+            <TranslatedText>{translationText.slice(0, 55)}</TranslatedText>
         </Container>
     );
 };
 
-export default History;
+export default React.memo(History);

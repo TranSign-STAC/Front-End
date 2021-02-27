@@ -2,18 +2,24 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import * as theme from '../../style/theme';
+import * as mixin from '../../style/mixin';
 
 type styleProps = {
-    status: String;
+    status: boolean;
+};
+
+type Props = {
+    data: string | Blob | null;
+    status: boolean;
+    loading: boolean;
+    handleTranslate: Function;
 };
 
 const Container = styled.div`
     width: 100%;
-    max-width: 448px;
     min-width: 282px;
     height: 56px;
     border: none;
-    margin: 0 auto;
 `;
 
 const Button = styled.button<styleProps>`
@@ -25,7 +31,7 @@ const Button = styled.button<styleProps>`
     font-size: 16px;
     line-height: 24px;
     ${(props) =>
-        props.status === 'enable'
+        props.status
             ? css`
                   background: ${theme.PURPLE};
                   color: ${theme.WHITE};
@@ -34,22 +40,29 @@ const Button = styled.button<styleProps>`
                   background-color: rgba(0, 0, 0, 0.2);
                   color: rgba(0, 0, 0, 0.4);
               `};
+    ${mixin.mobile(
+        `
+            border-radius: 0;
+        `
+    )}
 `;
 
-type Props = {
-    status: String;
-};
+const TranslateBtn = ({ data, status, loading, handleTranslate }: Props) => {
+    const handleClick = () => handleTranslate({ text: data });
 
-const TranslateBtn = ({ status }: Props) => (
-    <Container>
-        {status === 'enable' ? (
-            <Button status={status}>번역하기</Button>
-        ) : (
-            <Button status={status} disabled>
-                {status === 'disable' ? '번역하기' : '...'}
-            </Button>
-        )}
-    </Container>
-);
+    return (
+        <Container>
+            {!loading && status ? (
+                <Button status={!loading && status} onClick={handleClick}>
+                    번역하기
+                </Button>
+            ) : (
+                <Button status={!loading && status} disabled>
+                    {loading ? '...' : '번역하기'}
+                </Button>
+            )}
+        </Container>
+    );
+};
 
 export default TranslateBtn;

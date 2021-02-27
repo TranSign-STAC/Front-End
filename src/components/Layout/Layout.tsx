@@ -1,10 +1,9 @@
-import { loadGetInitialProps } from 'next/dist/next-server/lib/utils';
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import Navbar from '../Navbar/Navbar';
 
-type LayoutProps = {
+type Props = {
     children: ReactNode;
 };
 
@@ -15,14 +14,20 @@ const Container = styled.div`
 
 const Header = styled.div`
     width: 100%;
+    height: 64px;
 `;
 
-const Layout = ({ children }: LayoutProps) => (
+const Main = styled.div`
+    width: 100%;
+    height: calc(100% - 64px);
+`;
+
+const Layout = ({ children }: Props) => (
     <Container>
         <Header>
             <Navbar />
         </Header>
-        {children}
+        <Main>{children}</Main>
     </Container>
 );
 
