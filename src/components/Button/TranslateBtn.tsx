@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+import Loading from '../../../public/images/white/Loading.svg';
+
 import * as theme from '../../style/theme';
 import * as mixin from '../../style/mixin';
 
@@ -58,7 +60,7 @@ const TranslateBtn = ({ data, status, loading, handleTranslate }: Props) => {
                 </Button>
             ) : (
                 <Button status={!loading && status} disabled>
-                    {loading ? '...' : '번역하기'}
+                    {loading ? <Loading /> : '번역하기'}
                 </Button>
             )}
         </Container>

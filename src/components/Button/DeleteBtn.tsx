@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+import Loading from '../../../public/images/white/Loading.svg';
+
 import * as theme from '../../style/theme';
 import * as mixin from '../../style/mixin';
 
@@ -66,7 +68,7 @@ const DeleteBtn = ({ status }: Props) => (
             <Button status={status}>삭제하기</Button>
         ) : (
             <Button status={status} disabled>
-                {status === 'disable' ? '삭제하기' : '...'}
+                {status === 'disable' ? '삭제하기' : <Loading />}
             </Button>
         )}
     </Container>
