@@ -1,79 +1,105 @@
-import React,{useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import VoiceRecBtn from '../Button/VoiceRecBtn';
-import * as theme from '../../style/variables';
 
-import Translation from '../../../public/images/outline/translation.svg';
+import SelectWrap from './SelectWrap';
+import VoiceRecBtn from '../Button/VoiceRecBtn';
+
 import Close from '../../../public/images/outline/close.svg';
 import Videocam from '../../../public/images/fill/videocam.svg';
-import DownArrow from '../../../public/images/outline/downArrow.svg';
+
+import * as theme from '../../style/theme';
+import * as mixin from '../../style/mixin';
 
 type StyleProps = {
-    active: boolean;
+    active?: Boolean;
+    isMobileTablet: Boolean;
 };
 
-const Container = styled.div`
+const Container = styled.div<StyleProps>`
     position: relative;
-    max-width: 1046px;
-    height: 424px;
-    border: 1px solid #E2E2E6;
-`
-
-const SelectWrapper = styled.div`
-    position: relative;
-    display: flex;
-    height: 56px;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #E2E2E6;
-`
-
-const Content = styled.div`
-    height: 100%;
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    & > button {
-        border: none;
+    ${mixin.mobileTablet(`
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background: #fbfbff;
+    `)};
+    ${mixin.desktop(`
+        height: 424px;
+        border: 1px solid #e2e2e6;
+        margin: 40px auto 0 auto;
         background: ${theme.WHITE};
-        cursor: pointer;
-        font-weight: bold;
-    }
-    & > button > span {
-        display: flex;
-        align-items: center;
-        font-size: ${theme.paragraph}px;
-    }
-`
+    `)}
+    ${mixin.desktopM(`
+        width: 960px;
+    `)};
+    ${mixin.desktopL(`
+        width: 1046px;
+    `)};
+`;
 
-const InputBoxWrapper = styled.div`
+const InputBoxWrap = styled.div<StyleProps>`
     position: relative;
-    display:flex;
-    padding: 24px;
-`
+    display: flex;
+    ${mixin.mobileTablet(`
+        background: #fbfbff;
+        height: calc(100% - 98px);
+    `)};
+    ${mixin.mobile(`padding: 24px;`)};
+    ${mixin.tablet(`padding: 40px;`)};
+    ${mixin.desktop(`
+        padding: 24px;
+        background: ${theme.WHITE};
+    `)};
+`;
 
-const BtnWrapper = styled.div`
+const BtnWrap = styled.div`
     position: absolute;
-    z-index: 2;
     bottom: 24px;
     left: 24px;
-`
+`;
 
-const Input = styled.textarea`
+const TextArea = styled.textarea<StyleProps>`
     width: 100%;
-    height: 240px;
     border: none;
-    font-size: 16px;
-    padding: none;
     outline: none;
     resize: none;
-`
+    ${mixin.mobileTablet(`
+        position: relative;
+        height: 100%;
+        background: #fbfbff;
+        &::placeholder {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+    `)}
+    ${mixin.mobile(`
+        font-size: ${theme.paragraph}px;
+        &::placeholder {
+            font-size: ${theme.paragraph}px;
+        }
+    `)};
+    ${mixin.tablet(`
+        font-size: ${theme.subTitle}px;
+        &::placeholder {
+            font-size: ${theme.subTitle}px;
+        }
+    `)};
+    ${mixin.desktop(`
+        height: 240px;
+        font-size: 16px;
+    `)}
+`;
 
-const CloseWrapper = styled.div`
-    margin: 8px 8px 0 24px;
-    cursor:pointer;
-`
+const CloseWrap = styled.div<StyleProps>`
+    ${mixin.mobileTablet(`
+        padding: 4px 4px 0 12px;
+    `)}
+    ${mixin.desktop(`
+        padding: 8px 8px 0 24px;
+    `)}
+    cursor: pointer;
+`;
 
 const SignLanguage = styled.div`
     height: 368px;
@@ -81,7 +107,7 @@ const SignLanguage = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-`
+`;
 
 const CircleBtn = styled.button`
     width: 128px;
@@ -91,106 +117,70 @@ const CircleBtn = styled.button`
     background: ${theme.WHITE};
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-`
+`;
 
 const Text = styled.span`
     margin-top: 17px;
-`
-const Dropdown =styled.div`
-    z-index: 3;
-    top: 56px;
-    position: absolute;
-    width: 96px;
-    height: 72px;
-    background: ${theme.WHITE};
-    border-radius: 4px;
-    display: flex;
-    flex-direction:column;
-    padding: 4px 0;
-    border: 1px solid #f6f6f6;
-`
+`;
 
-const Item = styled.button<StyleProps>`
-    flex: 1;
-    font-weight: bold;
-    font-size: ${theme.paragraph}px;
-    border-radius: 0;
-    border: none;
-    background: ${theme.WHITE};
-    color:${(props) => (props.active ? theme.BLACK : theme.PURPLE )};
-    cursor: pointer;
-    &:hover {
-        background:rgba(84, 70, 246, 0.1);
-    }
-`
+type Props = {
+    inputValue: string;
+    isMobileTablet: boolean;
+    isTarSorChanged: boolean;
+    setInputValue: Function;
+    setIsTarSorChanged: Function;
+    setShowRecordModal: Function;
+};
 
-const TranslationArea: React.FC = () => {
-    const [isChange, setIsChange] = useState('');
-    const [isDropdown, setIsDropdown] = useState<boolean>(false);
-    const handleDropdown = () => setIsDropdown(!isDropdown);
-    const [isInputValue, setIsInputValue] = useState('');
-    const handleInputValue = (e) => setIsInputValue(e.target.value);
-    const deleteInputValue = () => setIsInputValue('');
+const TranslationArea = ({
+    inputValue,
+    isMobileTablet,
+    isTarSorChanged,
+    setInputValue,
+    setIsTarSorChanged,
+    setShowRecordModal,
+}: Props) => {
+    const handleInputValue = (e) => setInputValue(e.target.value);
+    const deleteInputValue = () => setInputValue('');
+    const handleShowModal = () => setShowRecordModal(true);
 
     return (
-        <Container>
-            <SelectWrapper>
-                    <Content>
-                        <button onClick={handleDropdown}>
-                            {isChange ? (
-                                    <span>수어 <DownArrow/></span>
-                                ):(
-                                    <span>한국어 <DownArrow/></span>
-                                )
-                            }
-                        </button>
-                    </Content>
-                    {isDropdown ? (
-                                <Dropdown>
-                                    <Item onClick={()=>{setIsChange('kor');setIsDropdown(false);}} active={isChange}>한국어</Item>
-                                    <Item onClick={()=>{setIsChange('sign');setIsDropdown(false);}} active={!isChange}>수어</Item>
-                                </Dropdown>
-                            ):(
-                                null
-                            )
-                    }
-                    <Translation />
-                <Content>
-                    <button onClick={handleDropdown}>
-                        {isChange === 'kor' ? (
-                                <span>한국어 <DownArrow/></span>
-                            ):(
-                                <span>수어 <DownArrow/></span>
-                            )
-                        }
-                    </button>
-                </Content>
-            </SelectWrapper>
-            {isChange ? (
-                    <SignLanguage>
-                        <CircleBtn>
-                            <Videocam/>
-                        </CircleBtn>
-                        <Text>버튼을 눌러 수어 녹화</Text>
-                    </SignLanguage>
-                ) : (
-                    <>
-                        <InputBoxWrapper>
-                            <Input placeholder="번역할 내용을 입력하세요." value={isInputValue} onChange={handleInputValue}/>
-                            {isInputValue.length>0 ? (
-                                    <CloseWrapper>
-                                        <Close onClick={deleteInputValue} />
-                                    </CloseWrapper>
-                                ):(
-                                    null
-                                )
-                            }
-                        </InputBoxWrapper>
-                        <BtnWrapper>
-                                <VoiceRecBtn/>
-                        </BtnWrapper>
-                    </>
-                )}
+        <Container isMobileTablet={isMobileTablet}>
+            <SelectWrap
+                isMobileTablet={isMobileTablet}
+                isTarSorChanged={isTarSorChanged}
+                setIsTarSorChanged={setIsTarSorChanged}
+                setShowRecordModal={setShowRecordModal}
+            />
+            {isTarSorChanged ? (
+                <SignLanguage>
+                    <CircleBtn onClick={handleShowModal}>
+                        <Videocam />
+                    </CircleBtn>
+                    <Text>버튼을 눌러 수어 녹화</Text>
+                </SignLanguage>
+            ) : (
+                <>
+                    <InputBoxWrap isMobileTablet={isMobileTablet}>
+                        <TextArea
+                            isMobileTablet={isMobileTablet}
+                            placeholder="번역할 내용을 입력하세요."
+                            value={inputValue}
+                            onChange={handleInputValue}
+                        />
+                        {inputValue.length > 0 ? (
+                            <CloseWrap isMobileTablet={isMobileTablet} onClick={deleteInputValue}>
+                                <Close />
+                            </CloseWrap>
+                        ) : null}
+                    </InputBoxWrap>
+                    {!isMobileTablet && (
+                        <BtnWrap>
+                            <VoiceRecBtn />
+                        </BtnWrap>
+                    )}
+                </>
+            )}
         </Container>
     );
 };
