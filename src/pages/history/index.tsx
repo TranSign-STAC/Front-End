@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
 import { END } from 'redux-saga';
+import nookies from 'nookies';
 
 import History from '../../components/History/History';
 import Layout from '../../components/Layout/Layout';
@@ -12,6 +12,13 @@ import wrapper from '../../store/configureStore';
 import { FETCH_HISTORY_LOADING } from '../../store/modules/history';
 
 import * as mixin from '../../style/mixin';
+
+type Props = {
+    histories: {
+        text: string;
+        uuid: string;
+    }[];
+};
 
 const Container = styled.div`
     width: 100%;
@@ -67,27 +74,16 @@ const DeleteModalBackground = styled.div`
     background: rgba(0, 0, 0, 0.7);
 `;
 
-type Props = {
-    histories: object[];
-    uuid: string;
-};
-
-type History = {
-    text: string;
-    uuid: string;
-};
-
-const HistoryPage = ({ histories, uuid }: Props) => {
-    const [isMobile, setIsMobile] = useState<Boolean>(false);
-    const [showDeleteModal, setShowDeleteModal] = useState<Boolean>(false);
+const HistoryPage = ({ histories }: Props) => {
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
     const handleClick = () => {
         document.body.style.overflow = showDeleteModal ? '' : 'hidden';
         setShowDeleteModal(!showDeleteModal);
     };
     useEffect(() => {
-        if (!localStorage.getItem('uuid')) localStorage.setItem('uuid', uuidv4());
-        setIsMobile(screen.width <= 1024);
+        setIsMobile(screen.width <= 425);
     }, []);
     return (
         <Layout>
@@ -95,7 +91,7 @@ const HistoryPage = ({ histories, uuid }: Props) => {
                 <HistoryWrap>
                     {histories.length < 1
                         ? '번역 기록이 없습니다.'
-                        : histories.map((history: object, idx: number) => (
+                        : histories.map((history, idx: number) => (
                               <History translationText={history.text} handleClick={handleClick} key={idx} />
                           ))}
                 </HistoryWrap>
@@ -110,19 +106,16 @@ const HistoryPage = ({ histories, uuid }: Props) => {
     );
 };
 
-export const getStaticProps: GetStaticProps = wrapper.getStaticProps(async ({ store }) => {
-    store.dispatch({
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+    const uuid = nookies.get(ctx).uuid;
+    ctx.store.dispatch({
         type: FETCH_HISTORY_LOADING,
-        payload: {
-            uuid: '0c5c1a75-0126-4fb5-8a3b-3284667c0337',
-        },
+        payload: { uuid },
     });
-    store.dispatch(END);
-    await (store as any).sagaTask.toPromise();
-    const histories = store.getState().history.fetchHistoryStatus.data;
-    const uuid = store.getState().user.uuid;
-
-    return { props: { histories: histories, uuid } };
+    ctx.store.dispatch(END);
+    await (ctx.store as any).sagaTask.toPromise();
+    const histories = ctx.store.getState().history.fetchHistoryStatus.data;
+    return { props: { histories } };
 });
 
 export default HistoryPage;
