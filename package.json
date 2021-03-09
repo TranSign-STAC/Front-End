@@ -25,6 +25,7 @@
     },
     "devDependencies": {
         "@svgr/webpack": "^5.5.0",
+        "@types/dom-mediacapture-record": "^1.0.7",
         "@types/next-redux-saga": "^3.0.2",
         "@types/node": "^12.12.21",
         "@types/react": "^16.9.16",
