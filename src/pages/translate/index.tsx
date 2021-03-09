@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
 
 import Layout from '../../components/Layout/Layout';
+import Result from '../../components/Result/Result';
 import VoiceRecBtn from '../../components/Button/VoiceRecBtn';
 import TranslateBtn from '../../components/Button/TranslateBtn';
 import TranslatingModal from '../../components/Modal/TranslatingModal';
@@ -18,11 +18,13 @@ import {
 import * as mixin from '../../style/mixin';
 
 type StyleProps = {
-    isMobile: Boolean;
+    isMobileTablet: Boolean;
 };
 
 type StoreType = {
-    translate: { translateStatus: { data: object | null; loading: boolean; error: object | null } };
+    translate: {
+        translateStatus: { data: { renderUrl: string } | null; loading: boolean; error: object | null };
+    };
     user: { uuid: string };
 };
 
@@ -111,10 +113,10 @@ const TranslatingModalBackground = styled.div`
 
 const TranslatePage = () => {
     const translateStatus = useSelector((state: StoreType) => state.translate.translateStatus);
-    const uuid = useSelector((state: StoreType) => state.user.uuid);
     const dispatch = useDispatch();
 
     const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [isMobileTablet, setIsMobileTablet] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState<string>('');
     const [isTranslating, setIsTranslating] = useState<boolean>(translateStatus.loading);
     const [showRecordModal, setShowRecordModal] = useState<boolean>(false);
@@ -127,7 +129,6 @@ const TranslatePage = () => {
                 type: TRANSLATE_SIGN_TO_TEXT_LOADING,
                 payload: {
                     ...payload,
-                    uuid,
                 },
             });
         else
@@ -135,52 +136,59 @@ const TranslatePage = () => {
                 type: TRANSLATE_TEXT_TO_SIGN_LOADING,
                 payload: {
                     ...payload,
-                    uuid: localStorage.getItem('uuid'),
                 },
             });
     };
     useEffect(() => {
-        if (!localStorage.getItem('uuid')) localStorage.setItem('uuid', uuidv4());
-        setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+        setIsMobile(screen.width <= 425);
+        setIsMobileTablet(screen.width <= 1024);
     }, []);
     return (
         <Layout>
-            <Container>
-                <TranslationAreaWrap isMobile={isMobile}>
-                    <TranslationArea
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
-                        isMobile={isMobile}
-                        isTarSorChanged={isTarSorChanged}
-                        setIsTarSorChanged={setIsTarSorChanged}
-                        setShowRecordModal={setShowRecordModal}
-                    />
-                </TranslationAreaWrap>
-                {!isTarSorChanged && (
-                    <TranslateBtnsWrap isMobile={isMobile}>
-                        {isMobile && <VoiceRecBtn isMobile={isMobile} />}
-                        <TranslateBtnWrap isMobile={isMobile}>
-                            <TranslateBtn
-                                data={inputValue}
-                                status={inputValue.length > 0}
-                                loading={translateStatus.loading && isTranslating}
+            {translateStatus.data ? (
+                <Result isMobile={isMobile} videoUrl={translateStatus.data.renderUrl} text={inputValue} />
+            ) : (
+                <Container>
+                    <TranslationAreaWrap isMobileTablet={isMobileTablet}>
+                        <TranslationArea
+                            inputValue={inputValue}
+                            setInputValue={setInputValue}
+                            isMobileTablet={isMobileTablet}
+                            isTarSorChanged={isTarSorChanged}
+                            setIsTarSorChanged={setIsTarSorChanged}
+                            setShowRecordModal={setShowRecordModal}
+                        />
+                    </TranslationAreaWrap>
+                    {!isTarSorChanged && (
+                        <TranslateBtnsWrap isMobileTablet={isMobileTablet}>
+                            {isMobileTablet && <VoiceRecBtn isMobileTablet={isMobileTablet} />}
+                            <TranslateBtnWrap isMobileTablet={isMobileTablet}>
+                                <TranslateBtn
+                                    data={inputValue}
+                                    status={inputValue.length > 0}
+                                    loading={translateStatus.loading && isTranslating}
+                                    handleTranslate={handleTranslate}
+                                />
+                            </TranslateBtnWrap>
+                        </TranslateBtnsWrap>
+                    )}
+                    {showRecordModal && (
+                        <RecordingModalWrap>
+                            <VideoRecordingModal
+                                isMobileTablet={isMobileTablet}
+                                setShowRecordModal={setShowRecordModal}
                                 handleTranslate={handleTranslate}
                             />
-                        </TranslateBtnWrap>
-                    </TranslateBtnsWrap>
-                )}
-                {showRecordModal && (
-                    <RecordingModalWrap>
-                        <VideoRecordingModal isMobile={isMobile} setShowRecordModal={setShowRecordModal} />
-                    </RecordingModalWrap>
-                )}
-                {translateStatus.loading && isTranslating && (
-                    <TranslatingModalWrap>
-                        <TranslatingModalBackground />
-                        <TranslatingModal isMobile={isMobile} setIsTranslating={setIsTranslating} />
-                    </TranslatingModalWrap>
-                )}
-            </Container>
+                        </RecordingModalWrap>
+                    )}
+                    {translateStatus.loading && isTranslating && (
+                        <TranslatingModalWrap>
+                            <TranslatingModalBackground />
+                            <TranslatingModal isMobile={isMobile} setIsTranslating={setIsTranslating} />
+                        </TranslatingModalWrap>
+                    )}
+                </Container>
+            )}
         </Layout>
     );
 };
