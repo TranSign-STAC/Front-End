@@ -66,11 +66,14 @@ const Container = styled.div<StyleProps>`
                   background: ${theme.WHITE};
                   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
               `};
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         margin-bottom: 24px;
     `)}
-    ${mixin.tablet(`
+    ${mixin.tablet(css`
         margin-right: 32px;
+    `)}
+    ${mixin.tabletL(css`
+        width: 208px;
     `)}
 `;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Close from '../../../public/images/outline/close.svg';
 
@@ -8,7 +8,7 @@ import * as mixin from '../../style/mixin';
 
 type Props = {
     translationText: string;
-    handleClick: Function;
+    handleClick: () => void;
 };
 
 const Container = styled.div`
@@ -20,45 +20,36 @@ const Container = styled.div`
     padding: 24px;
     border-radius: 4px;
     background: ${theme.WHITE};
-    ${mixin.mobile(
-        `
-            width: calc(100% - 48px);
-            margin-bottom: 16px;
-        `
-    )}
-    ${mixin.tablet(
-        `
-            width: 311px;
-        `
-    )}
-    ${mixin.desktop(
-        `
-            width: 368px;
-            &:hover {
-                & > div {
-                    display: inline;
-                }
+    ${mixin.mobile(css`
+        width: calc(100% - 48px);
+        margin-bottom: 16px;
+    `)}
+    ${mixin.tabletM(css`
+        width: 311px;
+    `)}
+    ${mixin.tabletL(css`
+        width: 320px;
+    `)}
+    ${mixin.desktop(css`
+        width: 368px;
+        &:hover {
+            & > div {
+                display: inline;
             }
-        `
-    )}
+        }
+    `)}
 `;
 
 const CloseWrap = styled.div`
-    ${mixin.mobile(
-        `
-            display: inline;
-        `
-    )}
-    ${mixin.tablet(
-        `
-            display: inline;
-        `
-    )}
-    ${mixin.desktop(
-        `
-            display: none;
-        `
-    )}
+    ${mixin.mobile(css`
+        display: inline;
+    `)}
+    ${mixin.tablet(css`
+        display: inline;
+    `)}
+    ${mixin.desktop(css`
+        display: none;
+    `)}
     position: absolute;
     top: 28px;
     right: 28px;

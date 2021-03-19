@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { END } from 'redux-saga';
 import nookies from 'nookies';
 
@@ -26,7 +26,7 @@ const Container = styled.div`
 `;
 
 const HistoryWrap = styled.div`
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         width: calc(100% - 32px);
         display: flex;
         flex-direction: column;
@@ -34,25 +34,39 @@ const HistoryWrap = styled.div`
         align-items: center;
         margin: 24px 16px 0 16px;
     `)}
-    ${mixin.tablet(`
-        width: 736px;
+    ${mixin.tablet(css`
         display: grid;
-        grid-template-columns: repeat(auto-fill, 359px);
         grid-template-rows: repeat(auto-fill, 128px);
-        column-gap: 18px;
-        row-gap: 16px;
         padding: 24px 0;
         margin: 0 auto;
     `)}
-    ${mixin.desktop(`
+    ${mixin.tabletM(css`
+        width: 736px;
+        grid-template-columns: repeat(auto-fill, 359px);
+        column-gap: 18px;
+        row-gap: 16px;
+    `)}
+    ${mixin.tabletL(css`
+        width: 760px;
+        grid-template-columns: repeat(auto-fill, 368px);
+        column-gap: 24px;
+        row-gap: 24px;
+    `)}
+    ${mixin.desktop(css`
         width: 864px;
         display: grid;
         grid-template-columns: 416px 416px;
-        grid-template-rows: repeat(auto-fill, 144px);
+        grid-template-rows: repeat(auto-fill, 128px);
         column-gap: 32px;
         row-gap: 24px;
-        padding: 53px 0;
-        margin: 0 auto;
+        margin: 53px auto 0 auto;
+    `)}
+    ${mixin.desktopL(css`
+        width: 1328px;
+        grid-template-columns: 416px 416px 416px;
+        column-gap: 40px;
+        row-gap: 40px;
+        margin: 64px auto 0 auto;
     `)}
 `;
 

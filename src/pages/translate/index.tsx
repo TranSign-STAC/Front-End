@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Layout from '../../components/Layout/Layout';
 import Result from '../../components/Result/Result';
@@ -45,39 +45,44 @@ const Container = styled.div`
 
 const TranslationAreaWrap = styled.div<StyleProps>`
     width: 100%;
-    ${mixin.mobileTablet(`height: 75%;`)};
+    ${mixin.mobileTablet(css`
+        height: 75%;
+    `)};
 `;
 
 const TranslateBtnsWrap = styled.div<StyleProps>`
     width: 100%;
     display: flex;
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         height: 25%;
         min-height: 160px;
         flex-direction: column;
         align-items: center;
         justify-content: flex-end;
     `)};
-    ${mixin.tablet(`
+    ${mixin.tablet(css`
         width: 100%;
         height: 25%;
         align-items: center;
         justify-content: center;
     `)}
-    ${mixin.desktop(`
+    ${mixin.desktop(css`
         justify-content: center;
         margin-top: 40px;
     `)}
 `;
 
 const TranslateBtnWrap = styled.div<StyleProps>`
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         width: 100%;
     `)}
-    ${mixin.tablet(`
-        width: 60%;
+    ${mixin.tabletM(css`
+        width: 448px;
     `)}
-    ${mixin.desktop(`
+    ${mixin.tabletL(css`
+        width: 464px;
+    `)}
+    ${mixin.desktop(css`
         width: 448px;
     `)}
 `;
@@ -122,7 +127,7 @@ const TranslatePage = () => {
     const [showRecordModal, setShowRecordModal] = useState<boolean>(false);
     const [isTarSorChanged, setIsTarSorChanged] = useState<boolean>(false);
 
-    const handleTranslate = (payload: HandleTextToSignParamsType) => {
+    const handleTranslate = (payload: HandleTextToSignParamsType): void => {
         setIsTranslating(true);
         if (isTarSorChanged)
             dispatch({

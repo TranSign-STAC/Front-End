@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 
 import Drawer from './Drawer';
@@ -29,8 +29,8 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    ${mixin.mobileTablet(`
-            justify-content: center;
+    ${mixin.mobileTablet(css`
+        justify-content: center;
     `)}
 `;
 
@@ -40,7 +40,7 @@ const Logo = styled.a`
     align-items: center;
     margin-left: 40px;
     cursor: pointer;
-    ${mixin.mobileTablet(`
+    ${mixin.mobileTablet(css`
         margin: 0;
     `)}
 `;

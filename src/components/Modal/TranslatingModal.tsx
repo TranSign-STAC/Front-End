@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Close from '../../../public/images/outline/close.svg';
 import Translation from '../../../public/images/white/translation.svg';
@@ -9,7 +9,7 @@ import * as mixin from '../../style/mixin';
 
 type Props = {
     isMobile: boolean;
-    setIsTranslating: Function;
+    setIsTranslating: (value: boolean) => void;
 };
 
 const Container = styled.div`
@@ -23,7 +23,7 @@ const Container = styled.div`
     justify-items: center;
     border-radius: 4px;
     background: ${theme.WHITE};
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         width: 311px;
         height: 280px;
         border-radius: 8px;
@@ -45,7 +45,7 @@ const TranslationWrap = styled.div`
     align-items: center;
     background: ${theme.PURPLE};
     border-radius: 100%;
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         width: 128px;
         height: 128px;
     `)}
@@ -56,7 +56,7 @@ const Describe = styled.p`
     font-weight: 700;
     text-align: center;
     margin-bottom: 40px;
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         margin-bottom: 16px;
     `)}
 `;

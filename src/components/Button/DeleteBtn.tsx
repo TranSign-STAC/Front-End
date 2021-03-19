@@ -16,16 +16,16 @@ type Props = {
 
 const Container = styled.div`
     border: none;
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         width: 311px;
         height: 48px;
     `)}
-    ${mixin.tablet(`
+    ${mixin.tablet(css`
         width: 448px;
         height: 56px;
         margin-bottom: 16px;
     `)}
-    ${mixin.desktop(`
+    ${mixin.desktop(css`
         width: 448px;
         height: 56px;
         margin-bottom: 16px;
@@ -46,16 +46,16 @@ const Button = styled.button<styleProps>`
                   background-color: rgba(0, 0, 0, 0.2);
                   color: rgba(0, 0, 0, 0.4);
               `};
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
     `)}
-    ${mixin.tablet(`
+    ${mixin.tablet(css`
         border-radius: 4px;
         font-size: 16px;
         line-height: 24px;
     `)}
-    ${mixin.desktop(`
+    ${mixin.desktop(css`
         border-radius: 4px;
         font-size: 16px;
         line-height: 24px;

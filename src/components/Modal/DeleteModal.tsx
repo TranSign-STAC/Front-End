@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import DeleteBtn from '../Button/DeleteBtn';
 
@@ -9,6 +9,11 @@ import Trash from '../../../public/images/fill/trash.svg';
 
 import * as theme from '../../style/theme';
 import * as mixin from '../../style/mixin';
+
+type Props = {
+    isMobile: Boolean;
+    handleClick: () => void;
+};
 
 const Container = styled.div`
     position: relative;
@@ -21,7 +26,7 @@ const Container = styled.div`
     align-items: center;
     justify-items: center;
     background: ${theme.WHITE};
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         width: 311px;
         height: 191px;
         border-radius: 8px;
@@ -35,10 +40,10 @@ const CloseWrap = styled.div`
 `;
 
 const TrashWrap = styled.div`
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         margin: 25.5px 0 9.5px 0;
     `)}
-    ${mixin.tablet(`
+    ${mixin.tablet(css`
         margin: 24px auto;
         width: 72px;
         height: 72px;
@@ -48,7 +53,7 @@ const TrashWrap = styled.div`
         background: ${theme.RED};
         border-radius: 100%;
     `)}
-    ${mixin.desktop(`
+    ${mixin.desktop(css`
         margin: 25px auto;
         width: 72px;
         height: 72px;
@@ -64,17 +69,17 @@ const Title = styled.h2`
     color: ${theme.RED};
     font-weight: 700;
     text-align: center;
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         font-size: 18px;
         line-height: 27px;
         margin-bottom: 6px;
     `)}
-    ${mixin.tablet(`
+    ${mixin.tablet(css`
         font-size: 24px;
         line-height: 36px;
         margin-bottom: 16px;
     `)}
-    ${mixin.desktop(`
+    ${mixin.desktop(css`
         font-size: 24px;
         line-height: 35.5px;
         margin-bottom: 16px;
@@ -84,26 +89,22 @@ const Title = styled.h2`
 const Describe = styled.p`
     font-weight: 300;
     text-align: center;
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         font-size: 12px;
         line-height: 18px;
         margin-bottom: 16px;
     `)}
-    ${mixin.tablet(`
+    ${mixin.tablet(css`
         font-size: 16px;
         line-height: 24px;
         margin-bottom: 40px;
     `)}
-    ${mixin.desktop(`font-size: 16px;
+    ${mixin.desktop(css`
+        font-size: 16px;
         line-height: 24px;
         margin-bottom: 40px;
     `)}
 `;
-
-type Props = {
-    isMobile: Boolean;
-    handleClick: Function;
-};
 
 const DeleteModal = ({ isMobile, handleClick }: Props) => {
     return (

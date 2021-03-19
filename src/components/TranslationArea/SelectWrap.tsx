@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 
 import Dropdown from './Dropdown';
@@ -10,28 +10,30 @@ import DownArrow from '../../../public/images/outline/downArrow.svg';
 import * as theme from '../../style/theme';
 import * as mixin from '../../style/mixin';
 
-type StyleProps = {
-    active?: Boolean;
+type Props = {
     isMobileTablet: Boolean;
+    isTarSorChanged: Boolean;
+    setIsTarSorChanged: (value: boolean) => void;
+    setShowRecordModal: (value: boolean) => void;
 };
 
-const Container = styled.div<StyleProps>`
+const Container = styled.div`
     width: 100%;
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         height: 25px;
         display: flex;
         align-items: center;
         padding: 10px 0 15px 0;
         background: ${theme.WHITE};
     `)};
-    ${mixin.tablet(`
+    ${mixin.tablet(css`
         height: 25px;
         display: flex;
         align-items: center;
         padding: 10px 0 15px 0;
         background: #ffffff;
     `)};
-    ${mixin.desktop(`
+    ${mixin.desktop(css`
         height: 56px;
         display: flex;
         justify-content: center;
@@ -50,18 +52,14 @@ const LanguageWrap = styled.div`
 const Language = styled.span`
     margin-right: 10.7px;
     font-weight: bold;
-    font-size: ${theme.paragraph};
+    font-size: ${theme.paragraph}px;
     line-height: 24px;
+    ${mixin.tablet(css`
+        font-size: ${theme.subTitle}px;
+    `)}
 `;
 
 const TranslationWrap = styled.div``;
-
-type Props = {
-    isMobileTablet: Boolean;
-    isTarSorChanged: Boolean;
-    setIsTarSorChanged: Function;
-    setShowRecordModal: Function;
-};
 
 const SelectWrap = ({ isMobileTablet, isTarSorChanged, setIsTarSorChanged, setShowRecordModal }: Props) => {
     const [sourceLanguage, setSourceLanguage] = useState<number>(0);
@@ -93,7 +91,7 @@ const SelectWrap = ({ isMobileTablet, isTarSorChanged, setIsTarSorChanged, setSh
     };
 
     return (
-        <Container isMobileTablet={isMobileTablet}>
+        <Container>
             <LanguageWrap onClick={handleSourceDrdw}>
                 {isTarSorChanged ? <Language>수어</Language> : <Language>한국어</Language>}
                 {!isMobileTablet && <DownArrow />}

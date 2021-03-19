@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import SelectWrap from './SelectWrap';
 import VoiceRecBtn from '../Button/VoiceRecBtn';
@@ -17,36 +17,44 @@ type StyleProps = {
 
 const Container = styled.div<StyleProps>`
     position: relative;
-    ${mixin.mobileTablet(`
+    ${mixin.mobileTablet(css`
         width: 100%;
         height: 100%;
         margin: 0;
         background: #fbfbff;
     `)};
-    ${mixin.desktop(`
-        height: 424px;
+    ${mixin.desktop(css`
+        height: 422px;
         border: 1px solid #e2e2e6;
         margin: 40px auto 0 auto;
         background: ${theme.WHITE};
     `)}
-    ${mixin.desktopM(`
+    ${mixin.desktopS(css`
         width: 960px;
     `)};
-    ${mixin.desktopL(`
-        width: 1046px;
+    ${mixin.desktopM(css`
+        width: 1044px;
+    `)};
+    ${mixin.desktopL(css`
+        width: 1438px;
+        height: 582px;
     `)};
 `;
 
 const InputBoxWrap = styled.div<StyleProps>`
     position: relative;
     display: flex;
-    ${mixin.mobileTablet(`
+    ${mixin.mobileTablet(css`
         background: #fbfbff;
         height: calc(100% - 98px);
     `)};
-    ${mixin.mobile(`padding: 24px;`)};
-    ${mixin.tablet(`padding: 40px;`)};
-    ${mixin.desktop(`
+    ${mixin.mobile(css`
+        padding: 24px;
+    `)};
+    ${mixin.tablet(css`
+        padding: 40px;
+    `)};
+    ${mixin.desktop(css`
         padding: 24px;
         background: ${theme.WHITE};
     `)};
@@ -63,7 +71,7 @@ const TextArea = styled.textarea<StyleProps>`
     border: none;
     outline: none;
     resize: none;
-    ${mixin.mobileTablet(`
+    ${mixin.mobileTablet(css`
         position: relative;
         height: 100%;
         background: #fbfbff;
@@ -73,36 +81,48 @@ const TextArea = styled.textarea<StyleProps>`
             text-align: center;
         }
     `)}
-    ${mixin.mobile(`
+    ${mixin.mobile(css`
         font-size: ${theme.paragraph}px;
         &::placeholder {
             font-size: ${theme.paragraph}px;
         }
     `)};
-    ${mixin.tablet(`
-        font-size: ${theme.subTitle}px;
+    ${mixin.tablet(css`
         &::placeholder {
-            font-size: ${theme.subTitle}px;
+            font-size: ${theme.title2}px; //24px
         }
     `)};
-    ${mixin.desktop(`
+    ${mixin.tabletM(css`
+        font-size: 19px;
+    `)}
+    ${mixin.tabletL(css`
+        font-size: 20px;
+    `)}
+    ${mixin.desktop(css`
         height: 240px;
-        font-size: 16px;
+        font-size: ${theme.paragraph}px;
+    `)}
+    ${mixin.desktopL(css`
+        height: 400px;
+        font-size: 20px;
     `)}
 `;
 
 const CloseWrap = styled.div<StyleProps>`
-    ${mixin.mobileTablet(`
+    ${mixin.mobileTablet(css`
         padding: 4px 4px 0 12px;
     `)}
-    ${mixin.desktop(`
+    ${mixin.desktop(css`
         padding: 8px 8px 0 24px;
     `)}
-    cursor: pointer;
+`;
+
+const CloseBtn = styled.button`
+    all: unset;
 `;
 
 const SignLanguage = styled.div`
-    height: 368px;
+    height: calc(100% - 56px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -127,9 +147,9 @@ type Props = {
     inputValue: string;
     isMobileTablet: boolean;
     isTarSorChanged: boolean;
-    setInputValue: Function;
-    setIsTarSorChanged: Function;
-    setShowRecordModal: Function;
+    setInputValue: (value: string) => void;
+    setIsTarSorChanged: (value: boolean) => void;
+    setShowRecordModal: (value: boolean) => void;
 };
 
 const TranslationArea = ({
@@ -140,7 +160,7 @@ const TranslationArea = ({
     setIsTarSorChanged,
     setShowRecordModal,
 }: Props) => {
-    const handleInputValue = (e) => setInputValue(e.target.value);
+    const handleInputValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => setInputValue(e.target.value);
     const deleteInputValue = () => setInputValue('');
     const handleShowModal = () => setShowRecordModal(true);
 
@@ -164,19 +184,21 @@ const TranslationArea = ({
                     <InputBoxWrap isMobileTablet={isMobileTablet}>
                         <TextArea
                             isMobileTablet={isMobileTablet}
-                            placeholder="번역할 내용을 입력하세요."
+                            {...(isMobileTablet ? { placeholder: '번역할 내용을 입력하세요.' } : {})}
                             value={inputValue}
                             onChange={handleInputValue}
                         />
                         {inputValue.length > 0 ? (
-                            <CloseWrap isMobileTablet={isMobileTablet} onClick={deleteInputValue}>
-                                <Close />
+                            <CloseWrap isMobileTablet={isMobileTablet}>
+                                <CloseBtn onClick={deleteInputValue}>
+                                    <Close />
+                                </CloseBtn>
                             </CloseWrap>
                         ) : null}
                     </InputBoxWrap>
                     {!isMobileTablet && (
                         <BtnWrap>
-                            <VoiceRecBtn />
+                            <VoiceRecBtn isMobileTablet={isMobileTablet} />
                         </BtnWrap>
                     )}
                 </>

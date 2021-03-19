@@ -16,7 +16,7 @@ const constraints = {
     },
 };
 
-const recordVideo = (setShowRecordModal: Function) =>
+const recordVideo = (setShowRecordModal: (value: boolean) => void): Promise<PromiseResultType> =>
     new Promise(async (resolve) => {
         if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia) {
             let stream: any = null;
@@ -54,23 +54,35 @@ const recordVideo = (setShowRecordModal: Function) =>
         }
     });
 
+type HandleTextToSignParamsType = {
+    payload: {
+        uuid: string;
+        text: string;
+    };
+};
+
 type StyleProps = {
     active: Boolean;
 };
 
 type Props = {
     isMobileTablet: boolean;
-    setShowRecordModal: Function;
-    handleTranslate: Function;
+    setShowRecordModal: (value: boolean) => void;
+    handleTranslate: (payload: HandleTextToSignParamsType) => void;
 };
 
-type PromiseResultType = (stream: MediaStream, start: Function, stop: Function, close: Function) => void;
+type PromiseResultType = {
+    stream: MediaStream;
+    start: () => void;
+    stop: () => void;
+    close: () => void;
+};
 
 const Container = styled.div`
     position: relative;
     background: ${theme.WHITE};
-    width: 1126px;
-    height: 496px;
+    width: 1124px;
+    height: 494px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -143,7 +155,7 @@ const VideoRecordingModal = ({ setShowRecordModal, isMobileTablet, handleTransla
     const [blob, setBlob] = useState<Blob | null>(null);
     const [blobUrl, setBlobUrl] = useState<string>('');
     const [localStream, setLocalStream] = useState<MediaStream | null>(null);
-    const videoRef = useRef<HTMLInputElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
     let recorder: any = null;
 
     const startRecording = useCallback(() => recorder.start(), [recorder]);
@@ -178,7 +190,7 @@ const VideoRecordingModal = ({ setShowRecordModal, isMobileTablet, handleTransla
             setShowRecordModal(false);
             return;
         }
-        recordVideo(setShowRecordModal).then((result) => {
+        recordVideo(setShowRecordModal).then((result): void => {
             setLocalStream(result.stream);
             recorder = result;
         });

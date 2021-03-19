@@ -42,11 +42,9 @@ const Button = styled.button<styleProps>`
                   background-color: rgba(0, 0, 0, 0.2);
                   color: rgba(0, 0, 0, 0.4);
               `};
-    ${mixin.mobile(
-        `
-            border-radius: 0;
-        `
-    )}
+    ${mixin.mobile(css`
+        border-radius: 0;
+    `)}
 `;
 
 const TranslateBtn = ({ data, status, loading, handleTranslate }: Props) => {
