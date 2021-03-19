@@ -1,8 +1,10 @@
 // Breakpoints
 export const breakpointMobile: number = 425;
-export const breakpointTablet: number = 768;
-export const breakpointDesktopM: number = 1280;
-export const breakpointDesktopL: number = 1366;
+export const breakpointTabletM: number = 768;
+export const breakpointTabletL: number = 1024;
+export const breakpointDesktopS: number = 1280;
+export const breakpointDesktopM: number = 1366;
+export const breakpointDesktopL: number = 1920;
 
 // Font size
 export const largeTitle: number = 45;
