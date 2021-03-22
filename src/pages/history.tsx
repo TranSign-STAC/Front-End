@@ -4,14 +4,14 @@ import styled, { css } from 'styled-components';
 import { END } from 'redux-saga';
 import nookies from 'nookies';
 
-import History from '../../components/History/History';
-import Layout from '../../components/Layout/Layout';
-import DeleteModal from '../../components/Modal/DeleteModal';
+import History from '../components/History/History';
+import Layout from '../components/Layout/Layout';
+import DeleteModal from '../components/Modal/DeleteModal';
 
-import wrapper from '../../store/configureStore';
-import { FETCH_HISTORY_LOADING } from '../../store/modules/history';
+import wrapper from '../store/configureStore';
+import { FETCH_HISTORY_LOADING } from '../store/modules/history';
 
-import * as mixin from '../../style/mixin';
+import * as mixin from '../style/mixin';
 
 type Props = {
     histories: {

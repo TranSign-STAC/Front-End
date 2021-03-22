@@ -2,20 +2,17 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
-import Layout from '../../components/Layout/Layout';
-import Result from '../../components/Result/Result';
-import VoiceRecBtn from '../../components/Button/VoiceRecBtn';
-import TranslateBtn from '../../components/Button/TranslateBtn';
-import TranslatingModal from '../../components/Modal/TranslatingModal';
-import VideoRecordingModal from '../../components/Modal/VideoRecordingModal';
-import TranslationArea from '../../components/TranslationArea/TranslationArea';
+import Layout from '../components/Layout/Layout';
+import Result from '../components/Result/Result';
+import VoiceRecBtn from '../components/Button/VoiceRecBtn';
+import TranslateBtn from '../components/Button/TranslateBtn';
+import TranslatingModal from '../components/Modal/TranslatingModal';
+import VideoRecordingModal from '../components/Modal/VideoRecordingModal';
+import TranslationArea from '../components/TranslationArea/TranslationArea';
 
-import {
-    TRANSLATE_TEXT_TO_SIGN_LOADING,
-    TRANSLATE_SIGN_TO_TEXT_LOADING,
-} from '../../store/modules/translate';
+import { TRANSLATE_TEXT_TO_SIGN_LOADING, TRANSLATE_SIGN_TO_TEXT_LOADING } from '../store/modules/translate';
 
-import * as mixin from '../../style/mixin';
+import * as mixin from '../style/mixin';
 
 type StyleProps = {
     isMobileTablet: Boolean;
